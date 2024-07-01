@@ -1,1 +1,21 @@
+The 2Sum problem asks us to find two numbers in an array such that they add up to a specific target sum.
 
+Approach:
+We use a hash map (unordered_map in C++) to efficiently store elements of the array as keys and their indices as values.
+
+vector<int> twoSum(vector<int>& nums, int k) {
+       int n=nums.size();
+       map<int,int>ms;
+       vector<int>b;
+       for(int i=0;i<n;i++){
+            int n=nums[i];
+            int rem=k-n;
+             if(ms.find(rem)!=ms.end()){
+            b.push_back(ms[rem]);b.push_back(i);
+        }
+        ms[n]=i;
+
+       }
+       return b;
+       
+    }
