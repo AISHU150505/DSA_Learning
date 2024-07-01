@@ -1,0 +1,44 @@
+Find the minimum element in a rotated sorted array in O(logn) time complexity:
+
+Approach:
+Binary Search Initialization:
+
+Use a binary search approach where you maintain two pointers (left and right) initially pointing to the start and end of the array, respectively.
+Calculate the midpoint mid of the array.
+Comparison of Midpoint with Pointers:
+
+Compare the element at the midpoint nums[mid] with the elements at nums[left] and nums[right].
+Determine Search Space:
+
+If nums[mid] is less than nums[right], it means the right half of the array is sorted in ascending order, and the minimum element is likely in the left half (including mid).
+If nums[mid] is greater than nums[right], it means the left half of the array is sorted in ascending order, and the minimum element is in the right half (excluding mid).
+Adjust Pointers:
+
+Adjust the left or right pointer based on the comparison results to narrow down the search space.
+Update the right pointer to mid if the array is sorted in the right half.
+Update the left pointer to mid + 1 if the array is sorted in the left half.
+Termination:
+
+Continue this process until left equals right. At this point, the left (or right) pointer will point to the minimum element of the rotated sorted array.
+
+Code:
+int findMin(vector<int>& nums) {
+        int l=0;int h=nums.size()-1;int ans=INT_MAX;
+        while(l<=h){
+            if(nums[l]<=nums[h]){
+                ans=min(ans,nums[l]);
+                return ans;
+            }
+            int m=(l+h)/2;
+            if(nums[l]<=nums[m]){
+                ans=min(ans,nums[l]);
+                l=m+1;
+            }
+            else{
+                ans=min(ans,nums[m]);
+                h=m-1;
+            }
+        }
+        return -1;
+    }
+    
