@@ -1,0 +1,64 @@
+To determine the minimum number of days required to make m bouquets of k adjacent flowers each.
+
+Approach:
+Binary Search Setup:
+
+Left Bound (left): Set it to 1, which is the minimum possible value for the days to start making bouquets.
+Right Bound (right): Set it to the maximum value in bloomDay, which is the day when the last flower blooms.
+Binary Search Execution:
+
+While left is less than or equal to right:
+Calculate the middle value mid (mid = (left + right) / 2).
+Check if it's possible to make at least m bouquets using k adjacent flowers each, with every flower blooming on day mid.
+If possible (canMakeBouquets function returns true), try to find a smaller number of days (right = mid - 1).
+Otherwise, increase the number of days (left = mid + 1).
+Helper Function canMakeBouquets:
+
+Iterate through bloomDay to count the number of consecutive flowers that can be used to form bouquets on day days.
+Reset the count whenever a flower cannot be used (blooms later than days or breaks the sequence of k adjacent flowers).
+Count how many bouquets can be made and check if it meets or exceeds m.
+Termination:
+
+The binary search terminates when left is greater than right. At this point, left will be the minimum number of days required to make m bouquets of k adjacent flowers.
+
+Code:
+int po(vector<int>a,int m,int k,int mid){
+   int  c=0;int s=0;
+    for(int i=0;i<a.size();i++){
+        if(a[i]<=mid){
+            c++;
+        }
+        else{
+            s+=(c/k);
+            c=0;
+        }
+    }
+    s+=(c/k);
+    if(s>=m)return 1;
+    else  return 0;
+  }
+    int minDays(vector<int>& bloomDay, int m, int k){
+       int l=INT_MAX;int h=INT_MIN;long long val = m * 1ll * k * 1ll;
+    int n = bloomDay.size(); //size of the array
+    if (val > n) return -1;
+       for(int i=0;i<n;i++){
+        l=min(l,bloomDay[i]);
+        h=max(h,bloomDay[i]);
+       }
+       while(l<=h){
+        int mid=(l+h)/2;
+        int cn=po(bloomDay,m,k,mid);
+        if(cn==1){
+            h=mid-1;
+
+        }
+        else{
+            l=mid+1;
+        }
+       }
+       return l;
+    }
+
+
+
+ 
