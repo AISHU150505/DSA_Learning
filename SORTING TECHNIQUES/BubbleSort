@@ -1,1 +1,25 @@
+Bubble sort is another simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. Here’s how it typically works:
 
+My Approach:
+Comparison and Swap: It compares each pair of adjacent items in the list and swaps them if they are in the wrong order (ascending or descending).
+Passes through the List: Each pass through the list places the next largest (or smallest) unsorted element in its correct position.
+Repeat Until Sorted: It repeats this process until the list is sorted.
+
+Code:
+void bubbleSort(int arr[], int n) {
+        int doswap=0;
+        for(int i=n-1;i>=1;i--){
+            
+            for(int j=0;j<=i-1;j++){
+                if(arr[j]>arr[j+1]){
+                    int temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                    doswap=1;
+                }
+            }
+            if(doswap==0)break;
+        }
+}
+
+Time Complexity : O(n^2)
