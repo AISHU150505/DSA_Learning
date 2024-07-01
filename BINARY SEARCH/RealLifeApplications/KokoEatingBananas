@@ -1,0 +1,64 @@
+Problem:
+
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+
+Return the minimum integer k such that she can eat all the bananas within h hours.
+
+Approach :
+
+Approach:
+To solve this problem efficiently, you can use a binary search approach:
+
+Binary Search Setup:
+
+Left Bound (left): Set it to 1, which represents the minimum bananas you can eat per hour (at least 1 banana per hour).
+Right Bound (right): Set it to the maximum number of bananas in any pile (max_element(piles)), which represents the maximum bananas you can eat per hour if you eat from the largest pile first.
+Binary Search Execution:
+
+While left is less than or equal to right:
+Calculate the middle value mid (mid = (left + right) / 2).
+Check if you can eat all bananas within h hours at the rate of mid bananas per hour.
+If yes, it means mid is a feasible rate, so try to find a smaller feasible rate (right = mid - 1).
+If no, increase the eating rate (left = mid + 1).
+Termination:
+
+The binary search terminates when left > right. At this point, left will be the minimum k such that you can eat all the bananas within h hours.
+
+Code:
+
+int maxx(vector<int>a){
+    int maxxx=INT_MIN;
+    for(int i=0;i<a.size();i++){
+        maxxx=max(a[i],maxxx);
+    }
+    return maxxx;
+}
+long long func(vector<int>a,int mid,int h){
+   long long sum=0;
+    for(int i=0;i<a.size();i++){
+        sum+=(ceil)((double)a[i]/(double)mid);
+    }
+    return sum;
+}
+    int minEatingSpeed(vector<int>& piles, int ho) {
+        int l=1;int h=maxx(piles);
+       
+        while(l<=h){
+            int m=(l+h)/2;
+            long long cnt=func(piles,m,ho);
+            if(cnt<=ho){
+                
+                h=m-1;
+            }
+            else{
+                
+                l=m+1;
+            }
+
+        }
+        return l;
+    }
