@@ -1,0 +1,24 @@
+Pascal's Triangle
+
+The Pascal's Triangle is a triangular array of binomial coefficients, where each number is the sum of the two directly above it. 
+
+My Approach :
+vector<vector<int>> generate(int n) {
+    vector<vector<int>>a(n,vector<int>(n,0));
+    for(int k=0;k<n;k++){
+    for(int i=0;i<=k;i++){
+         a[k].resize(k + 1); 
+        if(k>1 && i>0&& i<k){
+           a[k][i]=a[k-1][i-1]+a[k-1][i];
+        }
+        else{
+        a[k][i]+=1;
+        
+    }
+    }
+    }
+    
+
+    return a;
+    }
+Time Complexity : O(n^2)
