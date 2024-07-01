@@ -1,0 +1,48 @@
+Given an array of integers nums and an integer threshold, we will choose a positive integer divisor, divide all the array by it, and sum the division's result.
+
+
+To find the smallest divisor that satisfies the condition. Here's a step-by-step explanation of how to approach this:
+
+Approach:
+Binary Search Setup:
+
+Left Bound (left): Initialize it to 1, as the smallest possible divisor is 1.
+Right Bound (right): Initialize it to the maximum element in nums, since dividing by a smaller divisor might not reduce the sum enough.
+Binary Search Execution:
+
+While left is less than or equal to right:
+Calculate the middle value mid (mid = (left + right) / 2).
+Check if dividing all elements in nums by mid and summing up the ceiling of these divisions results in a sum less than or equal to threshold.
+If true, then mid might be a valid divisor, so try to find a smaller divisor (right = mid - 1).
+Otherwise, increase the divisor (left = mid + 1).
+Ceiling Division Calculation:
+
+For each element num in nums, calculate the ceiling of the division ceil(num / divisor) using (num + divisor - 1) / divisor.
+Termination:
+
+The binary search terminates when left exceeds right. At this point, left will be the smallest divisor that satisfies the condition.
+
+code:
+int c(vector<int>a,int m,int threshold){
+    int s=0;
+    for(int i=0;i<a.size();i++){
+        s+=ceil((double)a[i]/(double)(m));
+    }
+    return s;
+}
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        int l=1;
+        int h=*max_element(nums.begin(),nums.end());
+        while(l<=h){
+            int m=(l+h)/2;
+            int ans=c(nums,m,threshold);
+            if(ans<=threshold){
+                h=m-1;
+            }
+            else{
+                l=m+1;
+            }
+        }
+        return l;
+    }
+       
