@@ -1,0 +1,43 @@
+The 4Sum problem extends the concept of the 3Sum problem to finding all unique quadruplets in an array that sum up to a specific target. Here's how you can approach solving the 4Sum problem in C++:
+
+Approach:
+Sorting: Sort the array. Sorting helps in efficiently finding unique quadruplets and avoids duplicate combinations.
+
+Iterate and Three Pointers: Use nested loops to fix one element (let's call it nums[i]) and use three pointers (j, left, and right) to find the other three elements that sum up to the negative of nums[i].
+
+Skip Duplicates: While iterating through the array, skip duplicate values to avoid duplicate quadruplets.
+
+Code:
+
+vector<vector<int>> fourSum(vector<int>& a, int target) {
+        int n=a.size();
+        vector<vector<int>>ans;
+        sort(a.begin(),a.end());
+        for(int i=0;i<n;i++){
+            if(i>0&&a[i]==a[i-1])continue;
+            for(int j=i+1;j<n;j++){
+                if(j!=i+1&&a[j]==a[j-1])continue;
+                int k=j+1;int l=n-1;
+                while(k<l){
+                    long long sum=a[i];
+                    sum+=a[j];
+                    sum+=a[k];
+                    sum+=a[l];
+                    if(sum==target){
+                        vector<int>t={a[i],a[j],a[k],a[l]};k++;l--;
+                        ans.push_back(t);
+                        while(k<l && a[k]==a[k-1])k++;
+                        while(k<l && a[l]==a[l+1])l--;
+                    }
+                    else if(sum>target){
+                        l--;
+                    }
+                    else {
+                        k++;
+                    }
+                }
+            }
+        }
+        return ans;
+        }
+    Time complexity : O(n^3)
