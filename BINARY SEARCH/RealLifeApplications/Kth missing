@@ -1,0 +1,20 @@
+Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+
+Return the kth positive integer that is missing from this array.
+
+My Binary Approach :
+int findKthPositive(vector<int>& a, int k) {
+        int l=0;
+        int h=a.size()-1;
+        while(l<=h){
+            int m=(l+h)/2;
+            int missing=a[m]-(m+1);
+            if(missing<k){
+                l=m+1;
+            }
+            else{
+                h=m-1;
+            }
+        }
+        return l+k;
+    }
