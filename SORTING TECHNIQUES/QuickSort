@@ -1,1 +1,42 @@
+QuickSort is another efficient sorting algorithm based on the divide-and-conquer strategy. It works by selecting a pivot element from the array and partitioning the other elements into two sub-arrays according to whether they are less than or greater than the pivot. The sub-arrays are then recursively sorted.
 
+My Approach:
+
+Choose a Pivot: Select a pivot element from the array. There are several strategies for choosing a pivot, such as picking the first element, the last element, the middle element, or a random element.
+
+Partitioning: Rearrange the array so that all elements less than the pivot are on its left, and all elements greater than the pivot are on its right. After partitioning, the pivot element is in its correct position.
+
+Recursively Apply: Apply QuickSort recursively to the left and right sub-arrays created by partitioning.
+
+Combine: Since the sub-arrays are sorted in place, no additional combining step is needed.
+
+Code:
+
+void quickSort(int arr[], int low, int high)
+    {
+        if(low<high){
+            int p=partition(arr,low,high);
+            quickSort(arr,low,p-1);
+            quickSort(arr,p+1,high);
+        }
+    }
+    
+    public:
+    int partition (int a[], int low, int high)
+    {
+       int i=low;
+       int j=high;
+       int pivot=a[low];
+       while(i<j){
+       while(a[i]<=pivot&&i<=high){
+           i++;
+       }
+       while(a[j]>pivot&&j>=low){
+           j--;
+       }
+       if(i<j)swap(a[i],a[j]);
+       }
+       swap(a[low],a[j]);
+       
+       return j;
+    }
