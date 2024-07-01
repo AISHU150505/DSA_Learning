@@ -1,0 +1,25 @@
+Selection sort is a simple sorting algorithm that works by repeatedly finding the minimum (or maximum, depending on sorting order) element from the unsorted part of the array and putting it at the beginning.
+
+My Approach: 
+Selection of Minimum Element: Find the smallest element in the array and swap it with the element at the first position.
+Subsequent Subarrays: Move the boundary of the unsorted subarray one element to the right.
+Repeat: Continue the above steps until the entire array is sorted.
+
+Implementation : 
+
+  void selectionSort(int arr[], int n)
+    {
+       for(int i=0;i<=n-2;i++){
+           int min=i;
+           for(int j=i;j<=n-1;j++){
+               if(arr[j]<arr[min]){
+                   min=j;
+                   
+               }
+           }
+               int temp=arr[i];
+               arr[i]=arr[min];
+               arr[min]=temp;
+           
+       }
+    }
