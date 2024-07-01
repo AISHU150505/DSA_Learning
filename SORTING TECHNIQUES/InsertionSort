@@ -1,1 +1,28 @@
+Insertion sort is a simple sorting algorithm that builds the final sorted array one item at a time. It works by taking each element from the unsorted part of the array and inserting it into its correct position in the sorted part of the array.
 
+My Approach:
+
+Divide the Array: Imagine the array is divided into two parts: a sorted part and an unsorted part. Initially, the sorted part contains only the first element, and the rest of the array is the unsorted part.
+
+Insertion Process: For each element in the unsorted part, insert it into its correct position in the sorted part by:
+
+Comparing the current element with the elements in the sorted part.
+Shifting all the elements larger than the current element one position to the right.
+Inserting the current element into its correct position.
+Repeat: Repeat the above steps until the entire array is sorted.
+
+Code:
+void insertionSort(int arr[], int n)
+    {
+        for(int i=0;i<=n-1;i++){
+            int j=i;
+            while(j>0 && arr[j-1]>arr[j]){
+                int temp=arr[j];
+                arr[j]=arr[j-1];
+            arr[j-1]=temp;
+                j--;
+            }
+        }
+    }
+
+Time complexity : O(n^2)
