@@ -1,0 +1,54 @@
+Given a row wise sorted matrix of size R*C where R and C are always odd, find the median of the matrix.
+
+Approach:
+Calculate min(matrix) and max(matrix): As the given matrix is row-wise sorted the minimum element will be the minimum element in the first column and the maximum will be the maximum in the last column.
+Place the 2 pointers low and high: Initially, we will place the pointers. The pointer low will point to min(matrix) and the high will point to max(matrix).
+Calculate the ‘mid’: Now, inside a loop, we will calculate the value of ‘mid’ using the following formula: mid = (low+high) // 2 ( ‘//’ refers to integer division)
+Use the calculateSmallEqual() function to get the number of elements <= mid: Inside the function, we will use the above-mentioned upper bound formula for each row and calculate the total number of elements <= mid. Then we will return the total number from the function calculateSmallEqual().
+If smallEqual <= (M*N) // 2: We can conclude that our median must be a bigger number. So, we will eliminate the left i.e. the smaller half (low = mid+1).
+If smallEqual > (M*N) // 2: We can conclude that the element mid might be the median. But we have to reach the smallest number to find the actual median. So, in this case, we will remove the right half( i.e. high = mid-1).
+
+Code:
+
+int ub (vector<int>&a,int x,int n){
+    int l=0;int h=n-1;int ans=n;
+    while(l<=h){
+        int m=(l+h)/2;
+        if(a[m]>x){
+            ans=m;
+            h=m-1;
+        }
+        else{
+            l=m+1;
+        }
+    }
+    return ans;
+}
+int count(vector<vector<int>>a,int n,int m,int x){
+    int c=0;
+    for(int i=0;i<n;i++){
+        c+=ub(a[i],x,m);
+    }
+    return c;
+}
+    int median(vector<vector<int>> &a, int R, int C){
+            int l=INT_MAX;int h=INT_MIN;
+            for(int i=0;i<R;i++){
+                l=min(l,a[i][0]);
+                h=max(h,a[i][C-1]);
+            }
+            int req=(R*C)/2;
+            while(l<=h){
+                int mid=(l+h)/2;
+                int co=count(a,R,C,mid);
+                if(co<req+1){
+                    
+                    l=mid+1;
+                }
+                else{
+                    
+                    h=mid-1;
+                }
+            }
+            return l;
+    }
