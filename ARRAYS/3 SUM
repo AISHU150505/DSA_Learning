@@ -1,0 +1,40 @@
+The 3Sum problem involves finding all unique triplets in an array that sum up to a specific target. 
+
+Approach:
+Sorting: Sort the array. Sorting helps in efficiently finding unique triplets and avoids duplicate combinations.
+
+Iterate and Two Pointers: Use a nested loop to fix one element (let's call it nums[i]) and use two pointers (left and right) to find the other two elements that sum up to the negative of nums[i].
+
+Skip Duplicates: While iterating through the array, skip duplicate values to avoid duplicate triplets.
+
+Edge Cases: Handle edge cases such as arrays with fewer than three elements.
+
+Code:
+vector<vector<int>> threeSum(vector<int>& a) {
+    int n=a.size();
+    vector<vector<int>>ans;
+    sort(a.begin(),a.end());
+    for(int i=0;i<n;i++){
+        if(i>0&&a[i]==a[i-1]){
+            continue;
+        }
+        int j=i+1;
+        int k=n-1;
+        while(j<k){
+            int sum=a[i]+a[j]+a[k];
+            if(sum<0){
+                j++;
+            }
+            else if(sum>0){
+                k--;
+            }
+            else{
+                vector<int>t={a[i],a[j],a[k]};
+                ans.push_back(t);
+                j++;k--;
+                while(j<k&&a[j]==a[j-1])j++;
+                while(j<k&&a[k]==a[k+1])k--;
+            }
+        }
+    }
+    return ans;}
