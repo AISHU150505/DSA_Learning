@@ -1,0 +1,57 @@
+The "aggressive cows" problem is a classic problem that involves placing cows in stalls such that the minimum distance between any two cows is maximized. Here's how you can solve this problem using binary search:
+
+Problem Statement:
+Given an array of positions positions representing the positions of stalls and an integer C representing the number of cows, find the maximum possible minimum distance between cows when placing them optimally in the stalls.
+
+Approach:
+Binary Search Setup:
+
+Left Bound (left): Initialize it to 1, which is the minimum possible distance between cows.
+Right Bound (right): Initialize it to the difference between the maximum and minimum positions in positions, which is the maximum possible distance between cows.
+Binary Search Execution:
+
+While left is less than or equal to right:
+Calculate the middle value mid (mid = (left + right) / 2), which represents the current guess for the maximum minimum distance.
+Check if it's possible to place all cows such that the minimum distance between any two cows is at least mid.
+If true, then mid might be a valid distance, so try to find a larger distance (left = mid + 1).
+Otherwise, reduce the distance (right = mid - 1).
+Feasibility Check Function canPlaceCows:
+
+Place the first cow in the first stall (positions[0]).
+Iterate through the remaining stalls and place cows whenever the distance to the last placed cow is at least mid.
+Count how many cows can be placed and check if it meets or exceeds C.
+Termination:
+
+The binary search terminates when left exceeds right. At this point, right will be the maximum possible minimum distance that allows placing all cows optimally.
+
+Code:
+int check(vector<int>a,int m,int mid){
+    int last=a[0];
+    int c=1;
+    for(int i=1;i<a.size();i++){
+        if(a[i]-last>=mid){
+            c++;
+            last=a[i];
+        }
+    }
+    if(c>=m)return 1;
+    else return 0;
+}
+    int maxDistance(vector<int>& position, int m) {
+        int n=position.size();
+        sort(position.begin(),position.end());
+        int l=1;int h=position[n-1]-position[0]+1;
+        while(l<=h){
+            int mid=(l+h)/2;
+            int c=check(position,m,mid);
+            if(c==0){
+                h=mid-1;
+            }
+            else{
+                
+                l=mid+1;
+            }
+        }
+        return h;
+        
+    }
